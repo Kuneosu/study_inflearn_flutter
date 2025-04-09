@@ -8,8 +8,14 @@ import 'package:inf_fl/ui/text_st.dart';
 class SearchScreen extends StatelessWidget {
   final SearchState state;
   final void Function(String query)? onChanged;
+  final void Function()? onTapFilter;
 
-  const SearchScreen({super.key, required this.state, this.onChanged});
+  const SearchScreen({
+    super.key,
+    required this.state,
+    this.onChanged,
+    this.onTapFilter,
+  });
 
   get onTapSearchField => null;
 
@@ -35,14 +41,17 @@ class SearchScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 20),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: CST.primary100,
-                    borderRadius: BorderRadius.circular(10),
+                GestureDetector(
+                  onTap: onTapFilter,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: CST.primary100,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(Icons.tune, color: CST.white),
                   ),
-                  child: Icon(Icons.tune, color: CST.white),
                 ),
               ],
             ),
