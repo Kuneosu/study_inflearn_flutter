@@ -3,10 +3,12 @@ import 'package:inf_fl/data/data_source/local/default_local_storage.dart';
 import 'package:inf_fl/data/data_source/local_storage.dart';
 import 'package:inf_fl/data/data_source/recipe_data_source.dart';
 import 'package:inf_fl/data/data_source/remote/remote_recipe_data_source_impl.dart';
+// import 'package:inf_fl/data/repository/error_mock_recipe_repository_impl.dart';
 import 'package:inf_fl/data/repository/mock_bookmark_repository_impl.dart';
 import 'package:inf_fl/data/repository/mock_recent_search_recipe_repository_impl.dart';
 import 'package:inf_fl/data/repository/mock_recipe_repository_impl.dart';
 import 'package:inf_fl/data/use_case/get_categories_use_case.dart';
+import 'package:inf_fl/data/use_case/get_dishes_by_category_use_case.dart';
 import 'package:inf_fl/data/use_case/get_saved_recipes_use_case.dart';
 import 'package:inf_fl/data/use_case/search_recipes_use_case.dart';
 import 'package:inf_fl/domain/repository/bookmark_repository.dart';
@@ -25,6 +27,7 @@ void diSetup() {
 
   // Repository
   getIt.registerSingleton<RecipeRepository>(
+    // ErrorMockRecipeRepositoryImpl(),
     MockRecipeRepositoryImpl(recipeDataSource: getIt()),
   );
   getIt.registerSingleton<BookmarkRepository>(MockBookmarkRepositoryImpl());
@@ -43,6 +46,9 @@ void diSetup() {
     SearchRecipesUseCase(recipeRepository: getIt(), localStorage: getIt()),
   );
   getIt.registerSingleton(GetCategoriesUseCase(recipeRepository: getIt()));
+  getIt.registerSingleton(
+    GetDishesByCategoryUseCase(recipeRepository: getIt()),
+  );
 
   // View Model
   getIt.registerFactory<SavedRecipesViewModel>(
@@ -55,6 +61,9 @@ void diSetup() {
     ),
   );
   getIt.registerFactory<HomeViewModel>(
-    () => HomeViewModel(getCategoriesUseCase: getIt()),
+    () => HomeViewModel(
+      getCategoriesUseCase: getIt(),
+      getDishesByCategoryUseCase: getIt(),
+    ),
   );
 }

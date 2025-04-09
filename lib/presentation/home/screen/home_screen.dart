@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:inf_fl/core/presentation/components/dish_card.dart';
 import 'package:inf_fl/core/presentation/components/recipe_category_selector.dart';
 import 'package:inf_fl/core/presentation/components/search_input_field.dart';
+import 'package:inf_fl/domain/model/recipe.dart';
 import 'package:inf_fl/presentation/home/home_state.dart';
 import 'package:inf_fl/ui/color_st.dart';
 import 'package:inf_fl/ui/text_st.dart';
@@ -92,6 +95,28 @@ class HomeScreen extends StatelessWidget {
               categories: state.categories,
               onSelectCategory: onSelectCategory,
               selectedCategory: state.selectedCategory,
+            ),
+          ),
+          SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 30.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children:
+                    state.dishes
+                        .map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: DishCard(
+                              recipe: e,
+                              onTapFavorite: (Recipe recipe) {},
+                              isFavorite: false,
+                            ),
+                          ),
+                        )
+                        .toList(),
+              ),
             ),
           ),
         ],

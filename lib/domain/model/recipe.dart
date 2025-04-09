@@ -31,9 +31,10 @@ class Recipe {
       chef: json['chef'] as String,
       time: json['time'] as String,
       rating: json['rating'].toDouble(),
-      ingredients: (json['ingredients'] as List<dynamic>)
-          .map((e) => RecipeIngredient.fromJson(e))
-          .toList(),
+      ingredients:
+          (json['ingredients'] as List<dynamic>)
+              .map((e) => RecipeIngredient.fromJson(e))
+              .toList(),
     );
   }
 
@@ -56,6 +57,3 @@ class Recipe {
         'time: $time, rating: $rating, ingredients: $ingredients)';
   }
 }
-
-
-
