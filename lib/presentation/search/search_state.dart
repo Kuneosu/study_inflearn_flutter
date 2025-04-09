@@ -9,6 +9,13 @@ part 'search_state.freezed.dart';
 class SearchState with _$SearchState {
   final List<Recipe> recipes;
   final bool isLoading;
+  final String searchTitle;
+  final String resultsCount;
 
-  SearchState({this.recipes = const [], this.isLoading = false});
+  SearchState({
+    this.recipes = const [],
+    this.isLoading = false,
+    this.searchTitle = 'Recent Search',
+    this.resultsCount = '',
+  });
 }

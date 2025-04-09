@@ -1,24 +1,28 @@
-import 'package:inf_fl/data/data_source/recipe_data_source.dart';
+import 'package:inf_fl/data/data_source/local_storage.dart';
 import 'package:inf_fl/domain/model/recipe.dart';
 import 'package:inf_fl/domain/repository/recent_search_recipe_repository.dart';
 
 class MockRecentSearchRecipeRepositoryImpl
     implements RecentSearchRecipeRepository {
-  final RecipeDataSource _recipeDataSource;
+  final LocalStorage _localStorage;
 
-  MockRecentSearchRecipeRepositoryImpl({
-    required RecipeDataSource recipeDataSource,
-  }) : _recipeDataSource = recipeDataSource;
+  MockRecentSearchRecipeRepositoryImpl({required LocalStorage localStorage})
+    : _localStorage = localStorage;
 
   @override
   Future<List<Recipe>> getRecentSearchRecipes() async {
-    final recipes = await _recipeDataSource.getRecipes();
-    return recipes.map((e) => Recipe.fromJson(e)).toList();
+    try {
+      final json = await _localStorage.load();
+      return (json['recipes'] as Iterable)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+    } catch (e) {
+      return [];
+    }
   }
 
   @override
-  Future<void> updateRecentSearchRecipes(List<Recipe> recipes) {
-    // TODO: implement updateRecentSearchRecipes
-    throw UnimplementedError();
+  Future<void> updateRecentSearchRecipes(List<Recipe> recipes) async {
+    _localStorage.save({'recipes': recipes.map((e) => e.toJson())});
   }
 }
