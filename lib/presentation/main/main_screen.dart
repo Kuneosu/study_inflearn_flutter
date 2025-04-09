@@ -40,7 +40,7 @@ class MainScreen extends StatelessWidget {
                 Icon(Icons.bookmark_border, color: CST.primary100),
               ],
             ),
-            label: 'Home',
+            label: 'Bookmark',
           ),
           const NavigationDestination(
             icon: Icon(Icons.notifications_outlined, color: CST.gray4),
@@ -50,7 +50,7 @@ class MainScreen extends StatelessWidget {
                 Icon(Icons.notifications_outlined, color: CST.primary100),
               ],
             ),
-            label: 'Home',
+            label: 'Notifications',
           ),
           const NavigationDestination(
             icon: Icon(Icons.person_outline, color: CST.gray4),
@@ -60,7 +60,7 @@ class MainScreen extends StatelessWidget {
                 Icon(Icons.person_outline, color: CST.primary100),
               ],
             ),
-            label: 'Home',
+            label: 'Profile',
           ),
         ],
       ),

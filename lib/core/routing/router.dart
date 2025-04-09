@@ -1,10 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:inf_fl/core/routing/route_paths.dart';
-import 'package:inf_fl/presentation/home/home_screen.dart';
+import 'package:inf_fl/presentation/home/screen/home_root.dart';
 import 'package:inf_fl/presentation/main/main_screen.dart';
 import 'package:inf_fl/presentation/notifications/notifications_screen.dart';
 import 'package:inf_fl/presentation/profile/profile_screen.dart';
 import 'package:inf_fl/presentation/saved_recipes/screen/saved_recipes_root.dart';
+import 'package:inf_fl/presentation/search/screen/search_root.dart';
 import 'package:inf_fl/presentation/sign_in/sign_in_screen.dart';
 import 'package:inf_fl/presentation/sign_up/sign_up_screen.dart';
 import 'package:inf_fl/presentation/splash/splash_screen.dart';
@@ -38,6 +39,10 @@ final router = GoRouter(
             },
           ),
     ),
+    GoRoute(
+      path: RoutePaths.search,
+      builder: (context, state) => const SearchRoot(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return MainScreen(
@@ -56,7 +61,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: RoutePaths.home,
-              builder: (context, state) => const HomeScreen(),
+              builder: (context, state) => const HomeRoot(),
             ),
           ],
         ),
