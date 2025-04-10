@@ -8,6 +8,7 @@ import 'package:inf_fl/data/use_case/get_dishes_by_category_use_case.dart';
 import 'package:inf_fl/data/use_case/get_new_recipes_use_case.dart';
 import 'package:inf_fl/domain/error/new_recipe_error.dart';
 import 'package:inf_fl/domain/model/recipe.dart';
+import 'package:inf_fl/presentation/home/home_action.dart';
 import 'package:inf_fl/presentation/home/home_state.dart';
 import 'package:inf_fl/core/domain/error/error.dart';
 
@@ -19,15 +20,15 @@ class HomeViewModel with ChangeNotifier {
   final _eventController = StreamController<Error>();
   Stream<Error> get eventStream => _eventController.stream;
 
-  HomeState _state = HomeState();
+  HomeState _state = HomeState(name: 'Jega');
 
   HomeViewModel({
     required GetCategoriesUseCase getCategoriesUseCase,
     required GetDishesByCategoryUseCase getDishesByCategoryUseCase,
-    required GetNewRecipesUseCase GetNewRecipesUseCase,
+    required GetNewRecipesUseCase getNewRecipesUseCase,
   }) : _getCategoriesUseCase = getCategoriesUseCase,
        _getDishesByCategoryUseCase = getDishesByCategoryUseCase,
-       _getNewRecipesUseCase = GetNewRecipesUseCase {
+       _getNewRecipesUseCase = getNewRecipesUseCase {
     _fetchCategories();
     _fetchNewRecipes();
   }
@@ -58,7 +59,7 @@ class HomeViewModel with ChangeNotifier {
     }
   }
 
-  void onSelectCategory(String category) async {
+  void _onSelectCategory(String category) async {
     _state = state.copyWith(selectedCategory: category);
     notifyListeners();
 
@@ -92,5 +93,14 @@ class HomeViewModel with ChangeNotifier {
         }
     }
     notifyListeners();
+  }
+
+  void onAction(HomeAction action) async {
+    switch (action) {
+      case OnTapSearchField():
+        return;
+      case OnSelectCategory():
+        _onSelectCategory(action.category);
+    }
   }
 }

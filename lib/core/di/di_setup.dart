@@ -66,7 +66,7 @@ void diSetup() {
     () => HomeViewModel(
       getCategoriesUseCase: getIt(),
       getDishesByCategoryUseCase: getIt(),
-      GetNewRecipesUseCase: getIt(),
+      getNewRecipesUseCase: getIt(),
     ),
   );
 }
